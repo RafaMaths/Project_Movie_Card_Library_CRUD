@@ -16,7 +16,7 @@ class MovieList extends Component {
   }
 
   componentDidMount() {
-    this.movieGetAPI();
+    return this.movieGetAPI();
   }
 
   async movieGetAPI() {
