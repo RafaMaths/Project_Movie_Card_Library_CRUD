@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as movieAPI from '../services/movieAPI';
 import { Loading } from '../components';
+import { deleteMovie } from '../services/movieAPI';
 
 class MovieDetails extends Component {
   constructor() {
@@ -15,10 +16,23 @@ class MovieDetails extends Component {
     };
 
     this.movieGetAPI = this.movieGetAPI.bind(this);
+    this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
   }
 
   componentDidMount() {
     return this.movieGetAPI();
+  }
+
+  componentWillUnmount() {
+    return this.handleDeleteMovie();
+  }
+
+  async handleDeleteMovie() {
+    const { match: { params: { id } } } = this.props;
+    const deleteDataMovie = await movieAPI.deleteMovie(id);
+    return this.setState({
+      movie: deleteDataMovie,
+    });
   }
 
   async movieGetAPI() {
@@ -62,6 +76,7 @@ class MovieDetails extends Component {
         <p>{ `Rating: ${rating}` }</p>
         <Link to={ `/movies/${id}/edit` }>EDITAR</Link>
         <Link to="/">VOLTAR</Link>
+        <Link to="/">DELETAR</Link>
       </div>
     );
     return (
