@@ -15,19 +15,10 @@ class MovieDetails extends Component {
     };
 
     this.movieGetAPI = this.movieGetAPI.bind(this);
-    this.handleDeleteMovie = this.handleDeleteMovie.bind(this);
   }
 
   componentDidMount() {
     return this.movieGetAPI();
-  }
-
-  async handleDeleteMovie() {
-    const { match: { params: { id } } } = this.props;
-    const deleteDataMovie = await movieAPI.deleteMovie(id);
-    return this.setState({
-      movie: deleteDataMovie,
-    });
   }
 
   async movieGetAPI() {
